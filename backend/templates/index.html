@@ -10,16 +10,24 @@
       <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Paula Villarreal - Psicóloga" class="brand-logo-full">
     </a>
 
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       {% for link in nav_links %}
       <a href="{{ link.href }}" class="{{ 'active' if loop.first else '' }}">{{ link.label }}</a>
       {% endfor %}
+      <a class="btn btn-primary nav-cta-mobile" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
+        <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="" class="btn-icon">
+        Agenda por WhatsApp
+      </a>
     </nav>
 
     <a class="btn btn-primary nav-cta" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
       <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="" class="btn-icon">
       Agenda por WhatsApp
     </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -161,6 +169,23 @@
 </a>
 
 <script>
+var navToggle = document.getElementById('navToggle');
+var navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', function () {
+  var abierto = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open', abierto);
+  navToggle.setAttribute('aria-expanded', abierto);
+});
+
+navLinks.querySelectorAll('a').forEach(function (a) {
+  a.addEventListener('click', function () {
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
 document.getElementById('contactForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
