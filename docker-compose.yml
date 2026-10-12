@@ -1,0 +1,18 @@
+services:
+
+  PSICOLOGIA-WEB-5031:
+
+    build: .
+
+    image: psicologia-web:latest
+
+    env_file:
+      - .env
+
+    volumes:
+      - .:/app
+
+    restart: always
+
+    ports:
+      - 5031:5000/tcp

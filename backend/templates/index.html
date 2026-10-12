@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}Paula Villarreal · Psicóloga{% endblock %}
+
+{% block content %}
+
+<header class="navbar">
+  <div class="nav-container">
+    <a href="#inicio" class="brand">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Paula Villarreal - Psicóloga" class="brand-logo-full">
+    </a>
+
+    <nav class="nav-links">
+      {% for link in nav_links %}
+      <a href="{{ link.href }}" class="{{ 'active' if loop.first else '' }}">{{ link.label }}</a>
+      {% endfor %}
+    </nav>
+
+    <a class="btn btn-primary nav-cta" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
+      <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="" class="btn-icon">
+      Agenda por WhatsApp
+    </a>
+  </div>
+</header>
+
+<section id="inicio" class="hero">
+  <div class="hero-media">
+    <img src="{{ url_for('static', filename='img/fondo1.png') }}" alt="Consultorio acogedor" class="hero-img">
+  </div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Tu bienestar es una prioridad</p>
+      <h1>Un espacio seguro<br>para una <span class="highlight">vida más plena</span></h1>
+      <p class="hero-text">Te acompaño en tu proceso de crecimiento personal, gestión emocional y bienestar mental, para que puedas vivir la vida que mereces.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
+          <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="" class="btn-icon">
+          Quiero agendar una cita
+        </a>
+        <a class="btn btn-outline" href="#sobre-mi">Conoce más</a>
+      </div>
+      <ul class="hero-badges">
+        <li><img src="{{ url_for('static', filename='img/icon-shield.svg') }}" alt="">Confidencialidad<br>garantizada</li>
+        <li><img src="{{ url_for('static', filename='img/icon-heart-line.svg') }}" alt="">Atención<br>personalizada</li>
+        <li><img src="{{ url_for('static', filename='img/icon-leaf.svg') }}" alt="">Enfoque humano<br>y profesional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="section-inner services-inner">
+    <div class="services-heading">
+      <p class="eyebrow">Servicios</p>
+      <h2>¿Cómo puedo ayudarte?</h2>
+    </div>
+    <p class="services-desc">Brindo acompañamiento psicológico en diferentes áreas de tu vida, con un enfoque cercano y profesional.</p>
+  </div>
+
+  <div class="section-inner services-grid">
+    {% for s in servicios %}
+    <div class="service-card">
+      <div class="service-icon"><img src="{{ url_for('static', filename=s.icono) }}" alt=""></div>
+      <p class="service-name">{{ s.nombre | replace('\n', '<br>') | safe }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="sobre-mi" class="about">
+  <div class="about-media">
+    <img src="{{ url_for('static', filename='img/about-portrait.png') }}" alt="Paula Villarreal">
+  </div>
+  <div class="about-copy">
+    <p class="eyebrow">Sobre mí</p>
+    <h2>Hola, soy<br>Paula Villarreal</h2>
+    <p>Psicóloga con vocación de servicio, comprometida con el bienestar emocional de las personas. Creo en el poder de la escucha, la empatía y en la capacidad de cada persona para construir una vida más plena.</p>
+    <a class="btn btn-primary" href="#contacto">Conoce mi historia</a>
+  </div>
+  <div class="about-quote">
+    <img class="about-quote-bg" src="{{ url_for('static', filename='img/fondo2.png') }}" alt="Cuidar tu salud mental también es una forma de avanzar">
+  </div>
+</section>
+
+<section id="testimonios" class="testimonials">
+  <div class="section-inner">
+    <p class="eyebrow">Testimonios</p>
+    <h2>Lo que dicen mis pacientes</h2>
+  </div>
+  <div class="section-inner testimonials-grid">
+    {% for t in testimonios %}
+    <div class="testimonial-card">
+      <p class="testimonial-text">&ldquo;{{ t.texto }}&rdquo;</p>
+      <div class="testimonial-footer">
+        <span class="testimonial-name">{{ t.nombre }}</span>
+        <span class="testimonial-stars">★★★★★</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="testimonials-dots">
+    <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <div class="section-inner contact-inner">
+    <div class="contact-copy">
+      <p class="eyebrow">Contacto</p>
+      <h2>Hablemos, estoy aquí para ti</h2>
+      <p>Puedes escribirme directamente por <strong>WhatsApp</strong> o dejarme tus datos y me pondré en contacto contigo.</p>
+      <a class="btn btn-primary" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
+        <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="" class="btn-icon">
+        Enviar mensaje por WhatsApp
+      </a>
+    </div>
+
+    <form class="contact-form" id="contactForm" data-destino="{{ email_contacto }}">
+      <input type="text" id="cfNombre" placeholder="Nombre completo" required>
+      <input type="email" id="cfCorreo" placeholder="Correo electrónico" required>
+      <textarea id="cfMensaje" rows="4" placeholder="¿En qué puedo ayudarte?" required></textarea>
+      <button type="submit" class="btn btn-primary btn-block">Enviar mensaje</button>
+    </form>
+
+    <div class="contact-info">
+      <img class="contact-leaf" src="{{ url_for('static', filename='img/leaf-decor.svg') }}" alt="">
+      <ul>
+        <li><img src="{{ url_for('static', filename='img/icon-user.svg') }}" alt="">Consulta presencial y virtual</li>
+        <li><img src="{{ url_for('static', filename='img/icon-pin.svg') }}" alt="">Cali, Colombia</li>
+        <li><img src="{{ url_for('static', filename='img/icon-mail.svg') }}" alt="">{{ email_contacto }}</li>
+        <li><img src="{{ url_for('static', filename='img/icon-clock.svg') }}" alt="">Lun - Vie: 8:00 a.m. - 6:00 p.m.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <a href="#inicio" class="brand">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Paula Villarreal - Psicóloga" class="brand-logo-full">
+    </a>
+    <p class="footer-tagline">Tu bienestar hoy, un mejor mañana</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><img src="{{ url_for('static', filename='img/icon-instagram.svg') }}" alt=""></a>
+      <a href="#" aria-label="Facebook"><img src="{{ url_for('static', filename='img/icon-facebook.svg') }}" alt=""></a>
+      <a href="#" aria-label="LinkedIn"><img src="{{ url_for('static', filename='img/icon-linkedin.svg') }}" alt=""></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>SAVTOM Engineering &middot; <a href="mailto:savtomengineering@gmail.com">savtomengineering@gmail.com</a></span>
+    <span class="footer-links"><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></span>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/{{ whatsapp_numero }}?text={{ whatsapp_mensaje | urlencode }}" target="_blank" rel="noopener">
+  <span class="whatsapp-bubble">¿Hablamos?<br><small>Estoy aquí para ayudarte</small></span>
+  <span class="whatsapp-btn">
+    <img src="{{ url_for('static', filename='img/icon-whatsapp.svg') }}" alt="WhatsApp">
+    <span class="whatsapp-badge">1</span>
+  </span>
+</a>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  var nombre = document.getElementById('cfNombre').value.trim();
+  var correo = document.getElementById('cfCorreo').value.trim();
+  var mensaje = document.getElementById('cfMensaje').value.trim();
+
+  var asunto = 'Consulta de ' + nombre;
+  var cuerpo = mensaje + '\n\n---\nNombre: ' + nombre + '\nCorreo: ' + correo;
+
+  var url = 'https://mail.google.com/mail/?view=cm&fs=1'
+    + '&to=' + encodeURIComponent(this.dataset.destino)
+    + '&su=' + encodeURIComponent(asunto)
+    + '&body=' + encodeURIComponent(cuerpo);
+
+  window.open(url, '_blank', 'noopener');
+});
+</script>
+
+{% endblock %}
