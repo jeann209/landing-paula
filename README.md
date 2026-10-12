@@ -29,14 +29,8 @@ psicología/
 Requisitos: `git`, `docker` y el plugin `docker compose`.
 
 ```bash
-# 1. Clonar
 git clone https://github.com/jeann209/landing-paula.git
 cd landing-paula
-
-# 2. Crear el .env (no viene en el repo, pero docker compose lo exige)
-cp env-example.txt .env
-
-# 3. Levantar
 docker compose up -d --build
 ```
 
